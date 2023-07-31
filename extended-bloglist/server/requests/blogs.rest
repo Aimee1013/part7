@@ -1,0 +1,38 @@
+# get_all_blogs
+GET http://localhost:3003/api/blogs
+
+
+###
+# delete_a_blog
+DELETE http://localhost:3003/api/blogs/64b628e180c715424dfac0b0
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMDAxIiwiaWQiOiI2NGI1Zjc5MjJlODI0MGQxN2IxMjY4Y2IiLCJpYXQiOjE2ODk2NDcxNDh9.2NxinANz54TOQvNQvgMBwDe5M9S_0RPqM4Ec357Qo9s
+
+
+###
+# add_a_blog
+POST http://localhost:3003/api/blogs
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMDAxIiwiaWQiOiI2NGI1Zjc5MjJlODI0MGQxN2IxMjY4Y2IiLCJpYXQiOjE2ODk2NDcxNDh9.2NxinANz54TOQvNQvgMBwDe5M9S_0RPqM4Ec357Qo9s
+
+{
+    "title": "add a new blog with token011",
+    "author": "aimee011",
+    "url": "https://www.baidu.com",
+    "likes": 15,
+    "user_id": 123
+}
+
+
+
+
+
+###
+# update_a_blog
+# PUT http://localhost:3003/api/blogs
+# content-type: application/json
+
+# {
+#    "name": "FHRFGRYEFE2",
+#    "number": "00056-5466576666666",
+# }

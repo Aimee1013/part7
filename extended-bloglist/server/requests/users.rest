@@ -1,0 +1,37 @@
+# get_all_users
+GET http://localhost:3003/api/users
+
+
+###
+# delete_a_user
+# DELETE http://localhost:3003/api/persons/64af9a7aef7bb1be5c21e5c7
+
+
+
+###
+# add_a_user
+POST http://localhost:3003/api/users
+content-type: application/json
+
+{
+    "username": "test1",
+    "name": "super test1",
+    "password": "test1"
+}
+
+# {
+#     "username": "testuser001",
+#     "name": "super testuser001",
+#     "password": "testuser001"
+# }
+
+
+###
+# update_a_user
+# PUT http://localhost:3001/api/users
+# content-type: application/json
+
+# {
+#    "name": "FHRFGRYEFE2",
+#    "number": "00056-5466576666666",
+# }

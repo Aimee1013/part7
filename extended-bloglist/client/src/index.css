@@ -1,0 +1,17 @@
+.message{
+    border: "3px solid green";
+    border-radius: "5px";
+    padding: "10px";
+    background: "#cecece";
+    color: "green";
+    font-size: "22px"
+}
+
+.error{
+    border: "3px solid red";
+    border-radius: "5px";
+    padding: "10px";
+    background: "#cecece";
+    color: "red";
+    font-size: "22px"
+}
