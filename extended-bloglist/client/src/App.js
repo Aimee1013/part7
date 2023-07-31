@@ -6,14 +6,21 @@ import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "./reducers/loginReducer";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [message, setMessage] = useState(null);
   // const [username, setUsername] = useState("");
   // const [password, setPassword] = useState("");
   const BlogFormRef = useRef();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.login);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -52,9 +59,11 @@ const App = () => {
   //   }
   // };
 
-  const logout = () => {
-    window.localStorage.removeItem("loggedBlogappUser");
-    setUser(null);
+  const handleLogout = () => {
+    // window.localStorage.removeItem("loggedBlogappUser");
+    // setUser(null);
+    dispatch(userLogout());
+    navigate("/");
   };
 
   const handleCreate = async (title, author, url) => {
@@ -77,9 +86,7 @@ const App = () => {
     try {
       const updatedBlog = await blogService.updateBlog(id, updateObject);
       console.log("updateBlog", updatedBlog);
-      const newBlogs = blogs.map((blog) =>
-        blog.id === id ? updatedBlog : blog
-      );
+      const newBlogs = blogs.map((blog) => (blog.id === id ? updatedBlog : blog));
       setBlogs(newBlogs);
     } catch (error) {
       setMessage("error" + error.response.data.message);
@@ -97,36 +104,28 @@ const App = () => {
     }
   };
 
+  if (user === null) {
+    return <LoginForm />;
+  }
+
   return (
     <div>
       <Notification message={message} />
       <div>Blogs</div>
-      <div>Blog app, test blog, test author</div>
-
-      {user === null ? (
-        <div>
-          <LoginForm />
-        </div>
-      ) : (
-        <div>
-          <h2>blogs</h2>
-          <span>{user.name} logged in</span>{" "}
-          <button onClick={logout}>logout</button>
-          <Togglable buttonLable="new blog" ref={BlogFormRef}>
-            <BlogForm handleCreate={handleCreate} />
-          </Togglable>
-          {blogs
-            .sort((a, b) => a.likes - b.likes)
-            .map((blog) => (
-              <Blog
-                key={blog.id}
-                blog={blog}
-                updateLikes={updateLikes}
-                removeBlog={removeBlog}
-              />
-            ))}
-        </div>
-      )}
+      <div>Blog app, test blog, test author</div>(
+      <div>
+        <h2>blogs</h2>
+        <span>{user.name} logged in</span> <button onClick={handleLogout}>logout</button>
+        <Togglable buttonLable="new blog" ref={BlogFormRef}>
+          <BlogForm handleCreate={handleCreate} />
+        </Togglable>
+        {blogs
+          .sort((a, b) => a.likes - b.likes)
+          .map((blog) => (
+            <Blog key={blog.id} blog={blog} updateLikes={updateLikes} removeBlog={removeBlog} />
+          ))}
+      </div>
+      )
     </div>
   );
 };

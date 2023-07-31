@@ -14,13 +14,13 @@ const LoginForm = () => {
     e.preventDefault();
     const credentials = {
       username: username.value,
-      password: password.value,
+      password: password.value
     };
     dispatch(userLogin(credentials));
     // console.log(credentials);
 
-    resetUsername("");
-    resetPassword("");
+    resetUsername();
+    resetPassword();
   };
 
   return (
@@ -35,7 +35,9 @@ const LoginForm = () => {
         <div>
           password <TextField label="password" {...password} />
           <div>
-            <Button type="submit">login</Button>
+            <Button variant="contained" color="primary" type="submit">
+              login
+            </Button>
           </div>
         </div>
       </form>
