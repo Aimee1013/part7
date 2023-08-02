@@ -1,55 +1,46 @@
-import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React from "react";
+import { useField } from "../hooks";
+import { useDispatch } from "react-redux";
+import { createNewBlog } from "../reducers/blogReducer";
+import { notification } from "../reducers/notificationReducer";
+import Notification from "./Notification";
 
-const BlogForm = ({ handleCreate }) => {
-  const [newBlog, setNewBlog] = useState({ title: "", author: "", url: "" });
-  const inputRef = useRef(null);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    // console.log(name, value);
-    setNewBlog({ ...newBlog, [name]: value });
-  };
+const BlogForm = () => {
+  const { reset: resetTitle, ...title } = useField("text");
+  const { reset: resetAuthor, ...author } = useField("text");
+  const { reset: resetUrl, ...url } = useField("text");
+  const dispatch = useDispatch();
 
   const handleCreateBlog = (event) => {
     event.preventDefault();
-    handleCreate(newBlog.title, newBlog.author, newBlog.url);
-    setNewBlog({ title: "", author: "", url: "" });
+
+    const newBlog = {
+      title: title.value,
+      author: author.value,
+      url: url.value,
+    };
+    dispatch(createNewBlog(newBlog));
+    dispatch(
+      notification(`a new blog ${title.value} created by ${author.value}`, 5)
+    );
+
+    resetTitle();
+    resetAuthor();
+    resetUrl();
   };
   return (
     <div>
+      <Notification />
       <h2>create a new blog</h2>
       <form onSubmit={handleCreateBlog}>
         <div>
-          title:{" "}
-          <input
-            id="title"
-            ref={inputRef}
-            type="text"
-            name="title"
-            value={newBlog.title}
-            onChange={handleInputChange}
-          />
+          title: <input {...title} />
         </div>
         <div>
-          author:{" "}
-          <input
-            id="author"
-            type="text"
-            name="author"
-            value={newBlog.author}
-            onChange={handleInputChange}
-          />
+          author: <input {...author} />
         </div>
         <div>
-          url:{" "}
-          <input
-            id="url"
-            type="text"
-            name="url"
-            value={newBlog.url}
-            onChange={handleInputChange}
-          />
+          url: <input {...url} />
         </div>
         <div>
           <button id="create-button">create</button>
@@ -57,10 +48,6 @@ const BlogForm = ({ handleCreate }) => {
       </form>
     </div>
   );
-};
-
-BlogForm.propTypes = {
-  handleCreate: PropTypes.func.isRequired,
 };
 
 export default BlogForm;

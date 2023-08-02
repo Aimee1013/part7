@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useField } from "../hooks";
 import { userLogin } from "../reducers/loginReducer";
+import { notification } from "../reducers/notificationReducer";
 import { TextField, Button } from "@mui/material";
 import Notification from "./Notification";
 
@@ -17,10 +18,10 @@ const LoginForm = () => {
       password: password.value,
     };
     dispatch(userLogin(credentials));
-    // console.log(credentials);
+    dispatch(notification(`${username.value} logged in`, 5));
 
-    resetUsername("");
-    resetPassword("");
+    resetUsername();
+    resetPassword();
   };
 
   return (
@@ -33,9 +34,11 @@ const LoginForm = () => {
           username <TextField label="username" {...username} />
         </div>
         <div>
-          password <TextField label="password" {...password} />
+          password <TextField label="password" type="password" {...password} />
           <div>
-            <Button type="submit">login</Button>
+            <Button variant="contained" color="primary" type="submit">
+              login
+            </Button>
           </div>
         </div>
       </form>

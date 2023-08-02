@@ -13,11 +13,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc
 # add_a_blog
 POST http://localhost:3003/api/blogs
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMDAxIiwiaWQiOiI2NGI1Zjc5MjJlODI0MGQxN2IxMjY4Y2IiLCJpYXQiOjE2ODk2NDcxNDh9.2NxinANz54TOQvNQvgMBwDe5M9S_0RPqM4Ec357Qo9s
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QxIiwiaWQiOiI2NGJkZWJmZmM4ZjczMzc1NWE3MzM5YjgiLCJpYXQiOjE2OTA5MzY5MTEsImV4cCI6MTY5MDk0MDUxMX0.DJ1w14QGFqf7f4i-a4XPPyUPd4bX6hDcxf7hJd4LAjY
+
 
 {
-    "title": "add a new blog with token011",
-    "author": "aimee011",
+    "title": "add a new blog with token012",
+    "author": "aimee012",
     "url": "https://www.baidu.com",
     "likes": 15,
     "user_id": 123
@@ -34,5 +35,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc
 
 # {
 #    "name": "FHRFGRYEFE2",
-#    "number": "00056-5466576666666",
+#    "number": "00056-5466576666666"
 # }
+
+
+###
+#add_a_comment
+POST http://localhost:3003/api/blogs/64bdec00c8f733755a7339c2/comments 
+Content-Type: application/json
+
+{
+"comment": "this is the first comment!"
+}

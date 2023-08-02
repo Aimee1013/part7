@@ -11,10 +11,13 @@ const LoginSlice = createSlice({
       console.log("dispatch", state, action);
       return action.payload;
     },
+    logout(state, action) {
+      return action.payload;
+    },
   },
 });
 
-export const { login } = LoginSlice.actions;
+export const { login, logout } = LoginSlice.actions;
 
 export const userLogin = (credentials) => {
   return async (dispatch) => {
@@ -29,6 +32,13 @@ export const userLogin = (credentials) => {
     } catch (error) {
       console.log("error", error);
     }
+  };
+};
+
+export const userLogout = () => {
+  return async (dispatch) => {
+    userService.clearUser();
+    dispatch(logout(null));
   };
 };
 
